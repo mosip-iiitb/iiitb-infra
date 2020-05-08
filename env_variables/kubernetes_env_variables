@@ -1,0 +1,10 @@
+#enter the number of k8s master nodes you want(must be greater than or equal to 1)
+no_of_master=2	
+
+#enter the number of k8s worker nodes you want(must be greater than or equal to 1)
+no_of_worker=2
+
+#note:read this carefully before filling details otherwise it creates imbalance in structure
+#if you want one master no_of_master==1 than put no_of_vm = no_of_master+no_of_worker as no load_balancer needed
+#if you want more than one master no_of_master>1 than put no_of_vm = no_of_master+no_of_worker+1 as one extra vm for load_balancer needed
+
