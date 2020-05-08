@@ -1,6 +1,9 @@
 echo "<===================================creating vm====================================>"
 
-ansible-playbook ./ansible_playbooks/creating_vm.yml
+ansible-playbook ./ansible_playbooks/creating_vm.yml -vvv
 
 echo "<==========================wait for 10 minutes atleast or============================>"
-echo "<=====================wait until all vm state go to shutdown============================>"
+echo "<==========================write watch virsh list --all=============================>"
+echo "<===================and wait until state of vm changes to shutdown===================>"
+
+#watch virsh list --all
