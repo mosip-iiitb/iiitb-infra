@@ -57,17 +57,17 @@ result=$(arp -an | grep $(virsh dumpxml $VIRTUAL_MACHINE_NAME | grep '<mac' | gr
 if [ $m_count -gt 0 ]
 then
 echo $result >> ./Kubernetes-setup/Ipaddress/master.txt
-echo $result >> hosts
+echo $result ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=admin >> hosts 
 m_count=`expr $m_count - 1`
 elif [ $w_count -gt 0 ] 
 then
 echo $result >> ./Kubernetes-setup/Ipaddress/worker.txt
-echo $result >> hosts
+echo $result ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=admin >> hosts 
 w_count=`expr $w_count - 1`
 elif [ $l_count -eq 1 ]
 then
 echo $result >> ./Kubernetes-setup/Ipaddress/kube-lb.txt
-echo $result >> hosts
+echo $result ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=admin >> hosts 	
 l_count=0
 fi
 done
