@@ -15,7 +15,7 @@ echo "<====================uncommenting host_key_checking done=================>
 
 echo "<========================kvm installation & setup========================>"
 
-ansible-playbook  ./ansible_playbooks/kvm_install_and_bridge_creation.yml
+ansible-playbook  ./ansible_playbooks/kvm_install_and_bridge_creation.yml -vvv
 
 echo "<====================kvm installation & setup done========================>"
 
@@ -25,9 +25,9 @@ echo "You want to restart system:"
 read choice
 
 if [ "$choice" = "y" ]; then
-  sudo shutdown –r now
+  sudo /sbin/shutdown -r now
 elif [ "$choice" = "Y" ]; then
-  sudo shutdown –r now
+  sudo /sbin/shutdown -r now
 fi
 
 
