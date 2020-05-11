@@ -1,0 +1,31 @@
+- hosts: node1
+  no_log: True
+  gather_facts: false
+  remote_user: root
+  tasks:
+    - name: SSH KeyGen command
+      tags: run
+      shell: >
+        ssh-keygen -q -b 2048 -t rsa -N "" -C "creating SSH" -f ~/.ssh/id_rsa
+        creates="~/.ssh/id_rsa"
+
+    - name: fetch all public ssh keys
+      shell: cat ~/.ssh/id_rsa.pub
+      register: ssh_keys
+      tags:
+        - ssh
+
+    - name: check keys
+      debug: msg="{{ ssh_keys.stdout }}"
+      tags:
+       - ssh
+
+    - name: deploy keys on all servers
+      authorized_key: user=root key="{{ item[0] }}"
+      delegate_to: "{{ item[1] }}"
+      with_nested:
+        - "{{ ssh_keys.stdout }}"
+        - "{{groups['node_all']}}"
+      tags:
+        - ssh
+
