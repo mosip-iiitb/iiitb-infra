@@ -14,6 +14,7 @@ m_count=$no_of_master
 w_count=$no_of_worker
 l_count=0
 total_count=0
+flag=0
 
 if [ $m_count -gt 1 ]
 then
@@ -44,7 +45,7 @@ elif [ $l_count -eq 1 ]; then
 
 fi
 
-echo "[nodes]" >> hosts
+echo "[node1]" >> hosts
 
 if [ $no_of_master -ge 1  -a  $no_of_worker -ge 1 ]
 then
@@ -57,7 +58,13 @@ result=$(arp -an | grep $(virsh dumpxml $VIRTUAL_MACHINE_NAME | grep '<mac' | gr
 if [ $m_count -gt 0 ]
 then
 echo $result >> ./Kubernetes-setup/Ipaddress/master.txt
-echo $result ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=admin >> hosts 
+echo $result ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=admin >> hosts
+  if [ $flag -eq 0 ]
+  then
+    echo  >> hosts
+    echo "[node_all]" >> hosts
+    flag=1
+  fi
 m_count=`expr $m_count - 1`
 elif [ $w_count -gt 0 ] 
 then
