@@ -4,12 +4,13 @@
   connection: local
   become: true
   vars_files:
-    - "./env_variables"
+    - "../env_variables/kvm_env_variables"
 
   tasks:
-     
+
      - name: Run sh script which creates n number of vm in localhost
-       command:  sh install_vm.sh  {{no_of_vm}} {{prefix_of_vm}}  vm_hardware_config.cfg   
+       command:  sh install_vm.sh  {{no_of_vm}} {{prefix_of_vm}}  vm_hardware_config.cfg  
        args:
         chdir: ../Auto-Deploy-KVM/
-       
+
+
