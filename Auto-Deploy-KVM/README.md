@@ -5,7 +5,7 @@ Mainly we have two scripts
 1. configure_network.sh
 2. install_vm.sh
 
-### Note: Run both scripts with sudo privileges
+**Note:** Run both scripts with sudo privileges
 
 ## Pre-requisites to run configure_network.sh
 
@@ -30,8 +30,21 @@ Mainly we have two scripts
 
 ## How to run install_vm.sh
 
-### Note: change the working directory of console to iiitb-infra/Auto-Deploy-KVM
+ **Note:** change the working directory of console to iiitb-infra/Auto-Deploy-KVM
 ```
 sh install_vm.sh <NumberOfVMS> <PrefixNameForVM> <VM-Hardware-config-file-path>
 
 ```
+
+### References
+
+---
+
+[1.bridge-utils-interfaces man page](https://manpages.debian.org/jessie/bridge-utils/bridge-utils-interfaces.5.en.html)
+[2.KVM with bridge](https://wiki.ubuntu.com/KvmWithBridge)
+[3.Network Connection bridge](https://help.ubuntu.com/community/NetworkConnectionBridge)
+[4.Cloning a virtual machine](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/cloning-a-vm)
+[5.Kickstart installations](https://docs.centos.org/en-US/centos/install-guide/Kickstart2/#sect-kickstart-syntax)
+[6.Automating the installation with kickstart](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/installation_guide/sn-automating-installation)
+[7.KVM Virtualization in RHEL 6 Made Easy](http://linux.dell.com/files/whitepapers/KVM_Virtualization_in_RHEL_6_made_easy.pdf)
+[8.KVM Virtualization in RHEL 6 Made Easy – Part 2](http://linux.dell.com/files/whitepapers/KVM_Virtualization_in_RHEL_6_Made_Easy_Part2.pdf)
