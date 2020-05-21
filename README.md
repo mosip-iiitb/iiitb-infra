@@ -12,22 +12,29 @@ Step 1: Execute ansible_&_kvm_install.sh
    
 Step 2: *Before going to next step go to env_variables/kvm_env_variables and edit prefix(names of vms you want to give) and            number of vms you want.
         *And also go to env_variables/kubernetes_env_variables and give no of masters, workers you want to create.
+        *Go to env_variables/host_env_variables and enter the name of host of host server.
+        *Go to env_variables/kvm_start_env_variables and enter the number of vms you want to start.
+
+Step 3: Make a folder named as osmedia inside Auto_Deploy_KVM and keep centos image inside that folder(osmedia).
    
  
-Step 3: Execute create_vm.sh
+Step 4: Execute create_vm.sh
         It will create n(user given input above) number of vms.
    
-Step 4: For confirmation of vms creation use command: 
+Step 5: For confirmation of vms creation use command: 
         watch virsh list --all
-        it will list all your active vms and please wait until all kvms status become shutoff
+        it will list all your active vms and please wait until all kvms status become shutoff.
    
-Step 5: Execute fetch_ip_of_vm.sh
+Step 6: Execute fetch_ip_of_vm.sh
         it will put ips of all masters and workers node in kubernetes_setup/Ipaddress text files.
  
-Step 6: ssh_inside_vms execution
-        Downloads necessary packages of kubernetes
-        ssh key setup
-        kubernetes installation
+Step 7: Execute ssh_inside_vms.sh
+        it will ssh inside all vms which are in running state.
+
+
+
+
+
     
  
      
