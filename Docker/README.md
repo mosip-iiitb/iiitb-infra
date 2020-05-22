@@ -2,7 +2,7 @@
 
 To start off we will be needing a system (or VM) of at least 1 core processor and 4 GB memory. Please follow the following steps after the pre-requisites are met. And you need to have Docker installed and working. (and git if you are following Approach 1)
 
-##Approach 1:
+## Approach 1:
 ## step 1: cloning repository
 First we need to clone mosip-ref-impl repository to our system
 
@@ -42,7 +42,7 @@ $ ifconfig
 ```
 note the docker IP address and open browser and enter *docker-ip:8008* you will see pre registration up and running.
 
-##Approach 2:
+## Approach 2:
 Without cloning git repository and manually build, we can directly run image from dockerhub registary.
 
 ```
