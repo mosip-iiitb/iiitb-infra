@@ -18,19 +18,21 @@
 
 ## Step 3: Setting up Image directory
         Make a folder named as osmedia inside Auto_Deploy_KVM and keep centos image inside that folder(osmedia).
-     
-## Step 4: Execute create_vm.sh
-        It will create n(user given input above) number of vms.
-   
-## Step 5: For confirmation of vms creation use command: 
  
+## Step 4: Execute create_vm.sh
+        It will create n(user given input above) number of vm's.
+     
+## Step 5: For confirmation of vm's creation use command: 
         $ watch virsh list --all
         It will list all your active vms and please wait until all kvms status become shutoff.
+        
+## Step 6: Execute start_vm.sh
+          It will start all vm's again as it will get shutoff after creation and wait for two minutes before going to next  step. 
    
-## Step 6: Execute fetch_ip_of_vm.sh
+## Step 7: Execute fetch_ip_of_vm.sh
         It will put ips of all masters and workers node in kubernetes_setup/Ipaddress text files.
  
-## Step 7: Execute ssh_inside_vms.sh
+## Step 8: Execute ssh_inside_vms.sh
         It will ssh inside all vms which are in running state.
 
 
