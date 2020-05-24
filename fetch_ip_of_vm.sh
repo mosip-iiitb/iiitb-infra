@@ -31,7 +31,7 @@ if [ $l_count -eq 0 ]; then
  
   if [ $total_count -lt $(($no_of_master+$no_of_worker)) ]
   then
-    echo "the env variables details provided is not correct we cant proceed just correct the details"
+    echo "the env variables given in /env_variables/kubernetes_env_variables is not correct,please check it once(number of running kvms may be less than no of masters and workers)"
     exit 1
   fi
 
@@ -39,7 +39,8 @@ elif [ $l_count -eq 1 ]; then
 
   if [ $total_count -lt $(($no_of_master+$no_of_worker+1)) ]
   then
-    echo "the env variables details provided is not correct we cant proceed just correct the details"
+       echo "the env variables given in /env_variables/kubernetes_env_variables is not correct,please check it once(number of running kvms may be less than no of masters,workers and one load balancer)"
+
     exit 1
   fi
 
@@ -82,6 +83,6 @@ done
 
 else
  
- echo "count of master or node entered is not valid(enter valid details)"
+    echo "the env variables given in /env_variables/kubernetes_env_variables is not correct,please check it once(number of worker and master must be greater than 1)"
 
 fi
