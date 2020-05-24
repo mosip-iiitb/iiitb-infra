@@ -64,3 +64,5 @@ This repository contains setup files to install and configure a multi-master Kub
    ```
    kubectl get nodes
    ```
+Kindly refer the below link for detailed explanation of setup files.
+https://github.com/mosip-iiitb/iiitb-infra/blob/master/Kubernetes-setup/kubernetes-log.md

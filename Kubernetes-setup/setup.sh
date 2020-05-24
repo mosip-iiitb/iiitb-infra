@@ -94,14 +94,20 @@ echo "***************************************************\n"
 line=$(head -n 1 $kubelb)
 
 
+#Content is the variable that will contain script to be executed in the loadbalancer. Content string is copied to kubelb.sh file and copied to loadbalancer via scp and is executed.
+
 content="#!/bin/sh\napt-get update -y\napt-get upgrade -y\napt-get install haproxy -y\n"
 
-echo "${content}" > kubelb.sh
+echo "${content}" > kubelb.sh 
+
+#Following few lines are configuration file for haproxy, where we specify load balancing algorithm and ip address of master nodes.
 
 content="\n\n\nfrontend kubernetes\nbind ${line}:6443\noption tcplog\nmode tcp\ndefault_backend kubernetes-master-nodes\n\n\n"
 
 content="${content}backend kubernetes-master-nodes\nmode tcp\nbalance roundrobin\noption tcp-check\n"
 
+
+# Below loop takes the Ip address of master nodes, append it as per the format of haproxy config file.
 count=0
 while IFS= read -r line
 do
@@ -110,6 +116,8 @@ do
 	count=$(( count + 1 ))
 
 done < $master
+
+#Copying the contents, executing kubelb.sh and restarting the haproxy.
 
 echo "content=\"${content}\"" >> kubelb.sh
 echo "echo \"\${content}\" >> /etc/haproxy/haproxy.cfg" >> kubelb.sh
@@ -124,6 +132,7 @@ eval $base_command
 
 #Installing and setting up kubeadm in master and worker nodes.
 
+
 base_scp="scp kubeadm.sh root@"
 count=1
 while IFS= read -r line
@@ -131,6 +140,8 @@ do
 	echo "\n***************************************************"
 	echo "INSTALLING KUBEADM,DOCKER in MASTER${count}"
 	echo "***************************************************\n"
+
+#content variable contains the script to be installed in each master node.
 
 	content="#!/bin/sh\nsudo -s\napt-get update -y\ncurl -fsSL https://get.docker.com -o get-docker.sh\nsh get-docker.sh\n"
 	content="${content}usermod -aG docker master${count}\ncurl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -\n"
@@ -178,6 +189,8 @@ do
 	content="${content}tar xvzf etcd-v3.3.13-linux-amd64.tar.gz\nmv etcd-v3.3.13-linux-amd64/etcd* /usr/local/bin/\n"
 	echo "${content}" > etcdsetup.sh
 
+#Below content variable is a string contains the configuration file, to bring up the etcd cluster.
+
 	content="[Unit]
 Description=etcd
 Documentation=https://github.com/coreos
@@ -199,6 +212,8 @@ ExecStart=/usr/local/bin/etcd \\
   --listen-client-urls https://${line}:2379,http://127.0.0.1:2379 \\
   --advertise-client-urls https://${line}:2379 \\
   --initial-cluster-token etcd-cluster-0 \\"
+
+#cluster is a string variable which will be appended to content variable, it contains the name and IP address of all the nodes in etcd cluster which is looped and appended. 
 	cluster="  --initial-cluster "
 	last=$(<$master wc -l)
 	count=1
@@ -214,6 +229,9 @@ ExecStart=/usr/local/bin/etcd \\
 		count=$((count+1))
 	done < $master
 
+
+#cluster variable and rest of the config file is appended to the content variable.
+
 	content="
 ${content}
 ${cluster}
@@ -221,8 +239,6 @@ ${cluster}
   --data-dir=/var/lib/etcd
 Restart=on-failure
 RestartSec=5
-
-
 
 [Install]
 WantedBy=multi-user.target"
@@ -251,6 +267,9 @@ do
 	echo "INITIALIZING MASTER${count} KUBEADM"
 	echo "***************************************************\n"
 
+
+#Below conditional statement will delete the apiserver keys that was copied from Master1. At the end of this loop we are copying keys from master1 to all other masters so that all masters are in sync.
+
 	if [ $count -ne 1 ]
 	then
 		my_command="ssh -n root@${line} \"rm ~/pki/apiserver.*\""
@@ -261,6 +280,7 @@ do
 		eval $my_command
 	fi
 
+#Below is the configuration file to initialize the kubeadm stored in the content variable, where IP address is modified accordingly. 
 	content="
 apiVersion: kubeadm.k8s.io/v1beta2
 bootstrapTokens:
@@ -299,6 +319,9 @@ etcd:
     certFile: /etc/etcd/kubernetes.pem
     endpoints:"
 
+
+#Below loop appends the IP address of the etcd cluster. 
+
 	while IFS= read -r inner_line
 	do
 
@@ -307,6 +330,8 @@ etcd:
 ${ip}"
 
 	done < $master 
+
+#Remaining configuration is appended to the content variable.
 
 	content="${content}
     keyFile: /etc/etcd/kubernetes-key.pem
@@ -324,6 +349,9 @@ scheduler: {}"
 	eval $my_command
 	my_command="ssh -n root@${line} \"kubeadm init --config=config.yml\""
 	eval $my_command
+
+#Below, if it is the first master node, it will copy the PKI folder to all other master nodes. 
+
 	if [ $count -eq 1 ]
 	then
 		countt=1
