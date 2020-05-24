@@ -35,3 +35,30 @@ $ sudo ufw allow from 192.168.29.247 to any port nfs
 $ sudo ufw enable
 $ sudo ufw status
 ```
+
+## Setting up the KVM Guest Machine
+
+We need to install the required NFS packages in the Kvm guest machine(Here its Centos)
+```
+$ sudo yum install nfs-utils
+```
+We need to create a directory for mounting the shared directory, in the KVM Guest machine.
+```
+$ sudo mkdir -p /home/centos/vmshare
+```
+
+Now, the final step is mounting the common shared directory in the guest machine by using the HostIP(host system IP address), Host system shared directory path and the guest system shared directory path.  
+
+```
+$ sudo mount 192.168.29.58:/home/krishna/vmshare /home/centos/vmshare
+```
+
+**Verification**
+
+To verify the mount has succeeded, access and explore the shared directory on the mount point:
+
+```
+$ cd  /home/centos/vmshare
+$ ls
+shared-file1  shared-file2  shared-file3
+```
