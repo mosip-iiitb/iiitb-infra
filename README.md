@@ -25,8 +25,9 @@
 ## Step 5: For confirmation of vm's creation use command: 
         $ watch virsh list --all
         This command run virsh list --all in every two seconds and it will list all your active vm's and wait until all vm's status become shutoff. After status becomes shutoff press ctrl+c.
-  ##   ![running](/running.png)
-  ##   ![shutoff](/shutoff.png)
+  ##   ![running](/images/running.png)
+  
+  ##   ![shutoff](/images/shutoff.png)
         
 ## Step 6: Execute start_vm.sh
           It will start all vm's again as it will get shutoff after creation and wait for two minutes before executing fetch_ip_of_vm.sh.
