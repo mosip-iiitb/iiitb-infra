@@ -55,3 +55,7 @@ sh install_vm.sh <NumberOfVMS> <PrefixNameForVM> <VM-Hardware-config-file-path>
 [7.KVM Virtualization in RHEL 6 Made Easy](http://linux.dell.com/files/whitepapers/KVM_Virtualization_in_RHEL_6_made_easy.pdf)
 
 [8.KVM Virtualization in RHEL 6 Made Easy – Part 2](http://linux.dell.com/files/whitepapers/KVM_Virtualization_in_RHEL_6_Made_Easy_Part2.pdf)
+
+[9.SHARING FILES BETWEEN THE HOST AND ITS VIRTUAL MACHINES](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_virtualization/sharing-files-between-the-host-and-its-virtual-machines_configuring-and-managing-virtualization)
+	
+[10.How To Set Up an NFS Mount on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-18-04)
