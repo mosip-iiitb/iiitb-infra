@@ -1,4 +1,4 @@
-#enter prefix of the virtual machine (if prefix=vm than name is like vm1,vm2,vm$
+#enter prefix of the virtual machine (if prefix=vm than name is like vm1,vm2,vm3,...)
 prefix_of_vm=vm
 
 #enter how many number of vm you need to start
