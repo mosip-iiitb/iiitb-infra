@@ -13,15 +13,15 @@ sed -i "/host_key_checking = False/ s/# *//"  ./ansible.cfg
 
 echo "<====================uncommenting host_key_checking done=================>"
 
-echo "<========================kvm installation & setup========================>"
+echo "<========================kvm installation & bridge setup========================>"
 
 ansible-playbook  ./ansible_playbooks/kvm_install_and_bridge_creation.yml -vvv
 
-echo "<====================kvm installation & setup done========================>"
+echo "<====================kvm installation & bridge setup done========================>"
 
-echo "<=================restart require to reflect changes======================>"
+echo "<=================restart is must to reflect the changes======================>"
 
-echo "You want to restart system:"  
+echo "ENTER YOUR CHOICE Y FOR YES(RESTART IS MUST)"  
 read choice
 
 if [ "$choice" = "y" ]; then
